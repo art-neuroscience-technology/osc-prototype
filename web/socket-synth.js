@@ -43,6 +43,7 @@ var example = example || {};
 
         this.oscPort.socket.onmessage = function (e) {
             console.log("message", e);
+
         };
 
         
@@ -52,23 +53,19 @@ var example = example || {};
         if (this.synth) {
             return;
         }
-
       
     };
 
     example.SocketSynth.prototype.listen = function () {
         this.oscPort.on("message", function (msg) {
             console.log("message", msg);
+            var address = msg.address;
+            var value = msg.args[0];
+            console.log('Message>', address, value)
+            console.log(document.getElementById('modulateKaleid').value)
+            document.getElementById('modulateKaleid').value = value;
+            console.log(document.getElementById('modulateKaleid').value)
         });
-    };
-
-
-    example.SocketSynth.prototype.mapMessage = function (oscMessage) {
-        $("#message").text(fluid.prettyPrintJSON(oscMessage));
-
-        var address = oscMessage.address;
-        var value = oscMessage.args[0];
-        console.log('Message>', address, value)
     };
 
 }());
