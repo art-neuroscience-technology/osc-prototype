@@ -1,6 +1,7 @@
 # Logs
 env
-
+ web/.DS_Store
+.DS_Store
 logs
 *.log
 npm-debug.log*

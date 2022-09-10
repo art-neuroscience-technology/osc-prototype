@@ -62,6 +62,7 @@ var example = example || {};
             var address = msg.address;
             var value = msg.args[0];
             console.log('Message>', address, value)
+            //TODO: if for each part 
             console.log(document.getElementById('modulateKaleid').value)
             document.getElementById('modulateKaleid').value = value;
             console.log(document.getElementById('modulateKaleid').value)
