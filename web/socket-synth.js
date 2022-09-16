@@ -1,4 +1,6 @@
+var threshold = 0.1;
 var example = example || {};
+
 
 (function () {
     "use strict";
@@ -58,14 +60,33 @@ var example = example || {};
 
     example.SocketSynth.prototype.listen = function () {
         this.oscPort.on("message", function (msg) {
-            console.log("message", msg);
             var address = msg.address;
             var value = msg.args[0];
-            console.log('Message>', address, value)
-            //TODO: if for each part 
-            console.log(document.getElementById('modulateKaleid').value)
-            document.getElementById('modulateKaleid').value = value;
-            console.log(document.getElementById('modulateKaleid').value)
+            
+
+            const partNames = ['leftEar', 'rightEar', 
+            'leftEye','rightEye',
+            'leftShoulder', 'rightShoulder', 
+            'leftElbow', 'rightElbow', 
+            'leftWrist', 'rightWrist', 
+            'leftHip', 'rightHip', 
+            'leftKnee', 'rightKnee', 
+            'leftAnkle', 'rightAnkle']
+           
+            switch (address) {
+              case '/leftEye/x':
+                console.log(address, value);
+                let n = 0.25*(value/600)
+                let oldValue = document.getElementById('mod').value
+                let difference = Math.abs(n-oldValue)
+                if (difference>threshold){
+                    document.getElementById('mod').value = n;
+                    console.log(address, value, n);
+                }
+                break;
+              default:
+                console.log(`Sorry, we are out of ${expr}.`);
+            }
         });
     };
 
